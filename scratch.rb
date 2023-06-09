@@ -1,7 +1,9 @@
-def foo
-  yield(rand(100))
+# in scratch.rb
+require "minitest/autorun"
+
+class MyFirstTest < Minitest::Test
+  def test_first_test
+    p x = rand(2)
+    x.odd?
+  end
 end
-
-bar = :to_s.to_proc
-
-p foo(&bar)
