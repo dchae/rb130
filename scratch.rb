@@ -1,2 +1,7 @@
+def foo
+  yield(rand(100))
+end
 
-p [].is_a?(Array)
+bar = :to_s.to_proc
+
+p foo(&bar)
