@@ -1,9 +1,11 @@
+require "simplecov"
+SimpleCov.start
+
 require "minitest/autorun"
 require "minitest/reporters"
 Minitest::Reporters.use!
 
 require_relative "todolist"
-
 class TodoListTest < Minitest::Test
   def setup
     @todo1 = Todo.new("Buy milk")
@@ -85,6 +87,12 @@ class TodoListTest < Minitest::Test
     assert_equal([false, true, true], @todos.map(&:done?))
   end
 
+  def test_done!
+    assert_equal(false, @todos.any?(&:done?))
+    @list.done!
+    assert_equal(true, @todos.all?(&:done?))
+  end
+
   def test_remove_at
     assert_raises(IndexError) { @list.remove_at(@list.size) }
     @list.remove_at(1)
@@ -144,5 +152,47 @@ class TodoListTest < Minitest::Test
     assert_equal(@todos, new_list.to_a)
     assert_instance_of(TodoList, new_list)
     refute_same(new_list, @list)
+  end
+
+  def test_find_by_title
+    assert_equal(@todo2, @list.find_by_title("Clean room"))
+    assert_nil(@list.find_by_title("Feed dog"))
+  end
+
+  def test_all_done
+    assert_equal([], @list.all_done.to_a)
+    @todo1.done!
+    assert_equal([@todo1], @list.all_done.to_a)
+    @list.done!
+    assert_equal(@todos, @list.all_done.to_a)
+  end
+
+  def test_all_not_done
+    assert_equal(@todos, @list.all_not_done.to_a)
+    @todo1.done!
+    assert_equal([@todo2, @todo3], @list.all_not_done.to_a)
+    @list.done!
+    assert_equal([], @list.all_not_done.to_a)
+  end
+
+  def test_mark_done
+    marked_done = @list.mark_done("Clean room")
+    assert_equal(@list, marked_done)
+    assert_equal([@todo2], @list.all_done.to_a)
+  end
+
+  def test_mark_all_done
+    assert_equal([false, false, false], @todos.map(&:done?))
+    marked_all_done = @list.mark_all_done
+    assert_equal(@list, marked_all_done)
+    assert_equal([true, true, true], @todos.map(&:done?))
+  end
+
+  def test_mark_all_undone
+    @todos.each(&:done!)
+    assert_equal([true, true, true], @todos.map(&:done?))
+    marked_all_undone = @list.mark_all_undone
+    assert_equal(@list, marked_all_undone)
+    assert_equal([false, false, false], @todos.map(&:done?))
   end
 end
