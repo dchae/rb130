@@ -156,24 +156,28 @@ class TodoList
   attr_accessor :todos
 end
 
-todo1 = Todo.new("Buy milk")
-todo2 = Todo.new("Clean room")
-todo3 = Todo.new("Go to gym")
+if __FILE__ == $0
+  todo1 = Todo.new("Buy milk")
+  todo2 = Todo.new("Clean room")
+  todo3 = Todo.new("Go to gym")
 
-p list = TodoList.new("Today's Todos")
-list.add(todo1)
-list.add(todo2)
-list.add(todo3)
+  p list = TodoList.new("Today's Todos")
+  list.add(todo1)
+  list.add(todo2)
+  list.add(todo3)
 
-todo1.done!
+  puts list
 
-p list.find_by_title("Buy milk")
-p list.find_by_title("Buy butter")
+  todo1.done!
 
-p list.all_done
-p list.all_not_done
-p list.mark_done("Clean room")
-puts list
+  p list.find_by_title("Buy milk")
+  p list.find_by_title("Buy butter")
 
-p list.mark_all_done
-p list.mark_all_undone
+  p list.all_done
+  p list.all_not_done
+  p list.mark_done("Clean room")
+  puts list
+
+  p list.mark_all_done
+  p list.mark_all_undone
+end 
