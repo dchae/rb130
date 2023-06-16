@@ -21,4 +21,9 @@ class CashRegisterTest < Minitest::Test
     @register.accept_money(@transaction)
     assert_equal(@register.total_money, old + additional)
   end
+
+  def test_change
+    @transaction.amount_paid = 11
+    assert_equal(@register.change(@transaction), 1)
+  end
 end
