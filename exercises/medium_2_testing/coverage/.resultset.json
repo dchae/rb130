@@ -1,0 +1,42 @@
+{
+  "Minitest": {
+    "coverage": {
+      "/home/dchae/github-dchae/rb130/exercises/medium_2_testing/transaction.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1686900322
+  }
+}
